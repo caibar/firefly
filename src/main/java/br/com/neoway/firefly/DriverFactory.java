@@ -22,7 +22,7 @@ public class DriverFactory {
 	private final String systemArchitecture = System.getProperty("os.arch");
 	private final boolean useRemoteWebDriver = Boolean.getBoolean("remoteDriver");
 
-	public WebDriver getDriver() throws Exception {
+	public WebDriver getDriver() {
 		if (null == webdriver) {
 			selectedDriverType = determineEffectiveDriverType();
 			DesiredCapabilities desiredCapabilities = selectedDriverType.getDesiredCapabilities();
@@ -49,13 +49,21 @@ public class DriverFactory {
 		return driverType;
 	}
 
-	private void instantiateWebDriver(DesiredCapabilities desiredCapabilities) throws MalformedURLException {
+	private void instantiateWebDriver(DesiredCapabilities desiredCapabilities) {
 		Log.info(" ");
 		Log.info("Current Operating System: " + operatingSystem);
 		Log.info("Current Architecture: " + systemArchitecture);
 		Log.info("Current Browser Selection: " + selectedDriverType);
 		Log.info(" ");
 		if (useRemoteWebDriver) {
+			instantiateRemoteWebDriver(desiredCapabilities);
+		} else {
+			webdriver = selectedDriverType.getWebDriverObject(desiredCapabilities);
+		}
+	}
+
+	private void instantiateRemoteWebDriver(DesiredCapabilities desiredCapabilities) {
+		try {
 			URL seleniumGridURL = new URL(System.getProperty("gridURL"));
 			String desiredBrowserVersion = System.getProperty("desiredBrowserVersion");
 			String desiredPlatform = System.getProperty("desiredPlatform");
@@ -66,8 +74,11 @@ public class DriverFactory {
 				desiredCapabilities.setVersion(desiredBrowserVersion);
 			}
 			webdriver = new RemoteWebDriver(seleniumGridURL, desiredCapabilities);
-		} else {
-			webdriver = selectedDriverType.getWebDriverObject(desiredCapabilities);
+		} catch (MalformedURLException urlException) {
+			Log.error("Error specified URL seleniumGrid" + urlException.getMessage());
+			urlException.printStackTrace();
+			// TODO verificar esse tratamento de erro pois o sistema tem que ser
+			// encerrado cosso passe aqui.
 		}
 	}
 }
