@@ -9,6 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import br.com.neoway.firefly.config.DriverType;
+import br.com.neoway.firefly.helpers.Log;
 
 public class DriverFactory {
 
@@ -41,20 +42,19 @@ public class DriverFactory {
 		try {
 			driverType = DriverType.valueOf(browser);
 		} catch (IllegalArgumentException ignored) {
-			System.err.println("Unknown driver specified, defaulting to '" + driverType + "'...");
+			Log.error("Unknown driver specified, defaulting to '" + driverType + "'...");
 		} catch (NullPointerException ignored) {
-			System.err.println("No driver specified, defaulting to '" + driverType + "'...");
+			Log.error("No driver specified, defaulting to '" + driverType + "'...");
 		}
 		return driverType;
 	}
 
 	private void instantiateWebDriver(DesiredCapabilities desiredCapabilities) throws MalformedURLException {
-		System.out.println(" ");
-		System.out.println("Current Operating System: " + operatingSystem);
-		System.out.println("Current Architecture: " + systemArchitecture);
-		System.out.println("Current Browser Selection: " + selectedDriverType);
-		System.out.println(" ");
-
+		Log.info(" ");
+		Log.info("Current Operating System: " + operatingSystem);
+		Log.info("Current Architecture: " + systemArchitecture);
+		Log.info("Current Browser Selection: " + selectedDriverType);
+		Log.info(" ");
 		if (useRemoteWebDriver) {
 			URL seleniumGridURL = new URL(System.getProperty("gridURL"));
 			String desiredBrowserVersion = System.getProperty("desiredBrowserVersion");
