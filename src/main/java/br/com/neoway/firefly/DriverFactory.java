@@ -50,16 +50,21 @@ public class DriverFactory {
 	}
 
 	private void instantiateWebDriver(DesiredCapabilities desiredCapabilities) {
-		Log.info(" ");
-		Log.info("Current Operating System: " + operatingSystem);
-		Log.info("Current Architecture: " + systemArchitecture);
-		Log.info("Current Browser Selection: " + selectedDriverType);
-		Log.info(" ");
+		Log.info(infoInstantiateWebDriver());
 		if (useRemoteWebDriver) {
 			instantiateRemoteWebDriver(desiredCapabilities);
 		} else {
 			webdriver = selectedDriverType.getWebDriverObject(desiredCapabilities);
 		}
+	}
+
+	private String infoInstantiateWebDriver() {
+		StringBuilder infoBuilder = new StringBuilder("Start Firefly WebDriver:");
+		infoBuilder.append("\n\tCurrent Operating System: ").append(operatingSystem);
+		infoBuilder.append("\n\tCurrent Architecture: ").append(systemArchitecture);
+		infoBuilder.append("\n\tCurrent Browser Selection: ").append(browser);
+		infoBuilder.append("\n\tUsing remote WebDriver: ").append(useRemoteWebDriver);
+		return infoBuilder.toString();
 	}
 
 	private void instantiateRemoteWebDriver(DesiredCapabilities desiredCapabilities) {
@@ -75,10 +80,8 @@ public class DriverFactory {
 			}
 			webdriver = new RemoteWebDriver(seleniumGridURL, desiredCapabilities);
 		} catch (MalformedURLException urlException) {
-			Log.error("Error specified URL seleniumGrid" + urlException.getMessage());
-			urlException.printStackTrace();
-			// TODO verificar esse tratamento de erro pois o sistema tem que ser
-			// encerrado cosso passe aqui.
+			Log.error("URL seleniumGrid specified incorrect:", urlException);
+			throw new IllegalArgumentException(urlException);
 		}
 	}
 }
