@@ -1,4 +1,4 @@
-package br.com.neoway.firefly;
+package br.com.neoway.firefly.support;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;

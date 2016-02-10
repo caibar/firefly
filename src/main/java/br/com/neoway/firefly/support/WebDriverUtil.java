@@ -1,10 +1,12 @@
-package br.com.neoway.firefly;
+package br.com.neoway.firefly.support;
 
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.*;
+
+import br.com.neoway.firefly.DriverFactory;
 
 public class WebDriverUtil {
 	public void esperaElementoDesaparesser(By by) {

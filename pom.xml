@@ -17,6 +17,7 @@
 		<junit.version>4.12</junit.version>
 		<phantomjs.version>1.2.1</phantomjs.version>
 		<cucumber.version>1.2.4</cucumber.version>
+		<picocontainer.version>2.15</picocontainer.version>
 		<hamcrest.version>1.3</hamcrest.version>
 		<!-- Configurable variables -->
 		<browser>firefox</browser>
@@ -70,6 +71,12 @@
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
 			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.picocontainer</groupId>
+			<artifactId>picocontainer</artifactId>
+			<version>${picocontainer.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

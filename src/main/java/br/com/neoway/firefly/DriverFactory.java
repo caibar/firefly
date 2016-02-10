@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import br.com.neoway.firefly.config.DriverType;
-import br.com.neoway.firefly.helpers.Log;
+import br.com.neoway.firefly.support.Log;
 
 public class DriverFactory {
 
@@ -52,7 +52,7 @@ public class DriverFactory {
 	private void instantiateWebDriver(DesiredCapabilities desiredCapabilities) {
 		Log.info(infoInstantiateWebDriver());
 		if (useRemoteWebDriver) {
-			instantiateRemoteWebDriver(desiredCapabilities);
+			webdriver = getRemoteWebDriverObject(desiredCapabilities);
 		} else {
 			webdriver = selectedDriverType.getWebDriverObject(desiredCapabilities);
 		}
@@ -67,7 +67,7 @@ public class DriverFactory {
 		return infoBuilder.toString();
 	}
 
-	private void instantiateRemoteWebDriver(DesiredCapabilities desiredCapabilities) {
+	private WebDriver getRemoteWebDriverObject(DesiredCapabilities desiredCapabilities) {
 		try {
 			URL seleniumGridURL = new URL(System.getProperty("gridURL"));
 			String desiredBrowserVersion = System.getProperty("desiredBrowserVersion");
@@ -78,7 +78,7 @@ public class DriverFactory {
 			if (null != desiredBrowserVersion && !desiredBrowserVersion.isEmpty()) {
 				desiredCapabilities.setVersion(desiredBrowserVersion);
 			}
-			webdriver = new RemoteWebDriver(seleniumGridURL, desiredCapabilities);
+			return new RemoteWebDriver(seleniumGridURL, desiredCapabilities);
 		} catch (MalformedURLException urlException) {
 			Log.error("URL seleniumGrid specified incorrect:", urlException);
 			throw new IllegalArgumentException(urlException);
