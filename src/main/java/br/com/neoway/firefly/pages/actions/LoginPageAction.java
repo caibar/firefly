@@ -1,18 +1,18 @@
 package br.com.neoway.firefly.pages.actions;
 
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import br.com.neoway.firefly.DriverFactory;
 import br.com.neoway.firefly.pages.LoginPage;
 
 public class LoginPageAction extends LoginPage {
 	WebDriverWait wait;
-	DriverFactory driver;
-	public LoginPageAction(DriverFactory driver) {
-		PageFactory.initElements(driver.getDriver(), this);
-		wait = new WebDriverWait(driver.getDriver(), 10, 500);
+	EventFiringWebDriver driver;
+	public LoginPageAction(EventFiringWebDriver driver) {
+		PageFactory.initElements(driver, this);
+		wait = new WebDriverWait(driver, 10, 500);
 		this.driver = driver;
 	}
 
@@ -26,7 +26,7 @@ public class LoginPageAction extends LoginPage {
 	}
 	
 	public void enterSite(){
-		driver.getDriver().get("https://github.com/");
+		driver.get("https://github.com/");
 	}
 
 	public void preencherLogin(String userName) {

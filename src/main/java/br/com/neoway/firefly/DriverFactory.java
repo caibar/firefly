@@ -13,7 +13,6 @@ import br.com.neoway.firefly.support.Log;
 
 public class DriverFactory {
 
-	private WebDriver webdriver;
 	private DriverType selectedDriverType;
 
 	private final DriverType defaultDriverType = DriverType.FIREFOX;
@@ -23,18 +22,9 @@ public class DriverFactory {
 	private final boolean useRemoteWebDriver = Boolean.getBoolean("remoteDriver");
 
 	public WebDriver getDriver() {
-		if (null == webdriver) {
-			selectedDriverType = determineEffectiveDriverType();
-			DesiredCapabilities desiredCapabilities = selectedDriverType.getDesiredCapabilities();
-			instantiateWebDriver(desiredCapabilities);
-		}
-		return webdriver;
-	}
-
-	public void quitDriver() {
-		if (null != webdriver) {
-			webdriver.quit();
-		}
+		selectedDriverType = determineEffectiveDriverType();
+		DesiredCapabilities desiredCapabilities = selectedDriverType.getDesiredCapabilities();
+		return instantiateWebDriver(desiredCapabilities);
 	}
 
 	private DriverType determineEffectiveDriverType() {
@@ -49,13 +39,12 @@ public class DriverFactory {
 		return driverType;
 	}
 
-	private void instantiateWebDriver(DesiredCapabilities desiredCapabilities) {
+	private WebDriver instantiateWebDriver(DesiredCapabilities desiredCapabilities) {
 		Log.info(infoInstantiateWebDriver());
 		if (useRemoteWebDriver) {
-			webdriver = getRemoteWebDriverObject(desiredCapabilities);
-		} else {
-			webdriver = selectedDriverType.getWebDriverObject(desiredCapabilities);
+			return getRemoteWebDriverObject(desiredCapabilities);
 		}
+		return selectedDriverType.getWebDriverObject(desiredCapabilities);
 	}
 
 	private String infoInstantiateWebDriver() {
