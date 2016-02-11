@@ -1,4 +1,4 @@
-package br.com.neoway.firefly;
+package br.com.neoway.firefly.config;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import br.com.neoway.firefly.config.DriverType;
 import br.com.neoway.firefly.support.Log;
 
 public class DriverFactory {

@@ -3,7 +3,7 @@ package br.com.neoway.firefly.hooks;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
-import br.com.neoway.firefly.DriverFactory;
+import br.com.neoway.firefly.config.DriverFactory;
 import br.com.neoway.firefly.support.Log;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;

@@ -2,7 +2,7 @@ package br.com.neoway.firefly.tests;
 
 import org.junit.Test;
 
-import br.com.neoway.firefly.DriverFactory;
+import br.com.neoway.firefly.config.DriverFactory;
 
 public class DriverFactoryTest {
 	

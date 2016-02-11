@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.*;
 
-import br.com.neoway.firefly.DriverFactory;
+import br.com.neoway.firefly.config.DriverFactory;
 
 public class WebDriverUtil {
 	public void esperaElementoDesaparesser(By by) {
