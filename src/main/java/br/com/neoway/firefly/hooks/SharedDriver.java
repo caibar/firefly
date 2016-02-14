@@ -36,6 +36,10 @@ public class SharedDriver extends EventFiringWebDriver {
 		super.close();
 	}
 
+	public static WebDriver getDriver(){
+		return REAL_DRIVER;
+	}
+	
 	@Before
 	public void deleteAllCookies() {
 		manage().deleteAllCookies();
